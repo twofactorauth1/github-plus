@@ -1,7 +1,8 @@
 {
   "name": "github-plus",
-  "version": "1.0.1",
-  "description": "Github Add-ons - Download File, display size of each file and Copy file contents",
+  "version": "1.1.0",
+  "description":
+    "Add-ons for Github website - Download File, display size of each file and Copy file contents",
   "main": "src/inject.js",
   "scripts": {
     "build": "gulp",
@@ -18,12 +19,7 @@
     "url": "https://github.com/softvar/github-plus/issues"
   },
   "homepage": "https://github.com/softvar/github-plus#readme",
-  "keywords": [
-    "extension",
-    "github",
-    "github-plus",
-    "file-download"
-  ],
+  "keywords": ["extension", "github", "github-plus", "file-download"],
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
