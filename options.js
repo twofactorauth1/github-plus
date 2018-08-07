@@ -44,11 +44,16 @@ function saveOptions() {
 // stored in chrome.storage.
 function restoreOptions() {
   var token;
+  var showThumbnail;
 
   chrome.storage.sync.get({
-    'x-github-token': ''
+    'x-github-token': '',
+    'show-thumbnail':'',
   }, function(storedData) {
     token = storedData['x-github-token'];
+    showThumbnail = storedData['show-thumbnail'];
+
+    document.getElementById('enable-thumbnail').checked = showThumbnail;
     document.getElementById('x-github-token').value = token;
     var validationWarning = document.getElementById('validation-warning');
     validationWarning.textContent = validateUserToken(token);
@@ -57,5 +62,21 @@ function restoreOptions() {
   });
 }
 
+function toggleThumbnail(event){
+  var isChecked = event.target.checked;
+  chrome.storage.sync.set({
+    'show-thumbnail': isChecked
+  }, function(){
+    var statusText = document.getElementById('status--text');
+    statusText.textContent = 'Thumbnails successfully ' + (isChecked ? 'enabled' : 'disabled');
+    document.getElementById('status').style.display = 'inline-block';
+    setTimeout(function() {
+      statusText.textContent = '';
+      document.getElementById('status').style.display = 'none';
+    }, 1500);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', restoreOptions);
 document.getElementById('save-btn').addEventListener('click', saveOptions);
+document.getElementById('enable-thumbnail').addEventListener('change', toggleThumbnail)

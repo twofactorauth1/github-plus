@@ -11,7 +11,7 @@
 
 var GITHUB_API_REPOS_BASE_URI = 'https://api.github.com/repos/';
 var SHOW_MAX_IMAGES = 100;
-var storedGithubToken, defaultBranch, repoSize;
+var storedGithubToken, defaultBranch, repoSize, isThumbnailEnabled;
 
 var utils = {
   getContentPath: function () {
@@ -305,7 +305,8 @@ var domUtils = {
     if (elems.length && elems.length === links.length) { // verify length for showing in-sync
       apiUtils.getRepoContent(function (data) {
         data = utils.sortFileStructureAsOnSite(data);
-        var totalImagesInDirectory = utils.totalImagesInDirectory(data);
+        var totalImagesInDirectory = isThumbnailEnabled && utils.totalImagesInDirectory(data);
+        console.log(totalImagesInDirectory,'-----------totalImagesInDirectory--------d-------', isThumbnailEnabled);
 
 
         if (!data) { return; }
@@ -340,11 +341,10 @@ var domUtils = {
             '</td>';
             
             // if there are more than 100 images in directory then dont show images
-            if(totalImagesInDirectory <= SHOW_MAX_IMAGES && utils.isImage(data[i])){
+            if(totalImagesInDirectory && totalImagesInDirectory <= SHOW_MAX_IMAGES && utils.isImage(data[i])){
                 var domChild = fileIconContainer[i].querySelector('.octicon');
                 domChild.parentNode.replaceChild(utils.buildImageContainer(data[i].download_url), domChild);
-            }
-            
+            }            
             elems[i].insertAdjacentHTML('afterend', html);
           } else {
             elems[i].insertAdjacentHTML('afterend', '<td class="download"></td>');
@@ -374,9 +374,11 @@ window.chrome.extension.sendMessage({}, function (response) {
       var hashDetection = new webNavigationUtils.hashHandler();
 
       window.chrome.storage.sync.get({
-        'x-github-token': ''
+        'x-github-token': '',
+        'show-thumbnail': '',
       }, function(storedData) {
         storedGithubToken = storedData['x-github-token'];
+        isThumbnailEnabled = storedData['show-thumbnail'];
         domUtils.addRepoData();
       });
     }
