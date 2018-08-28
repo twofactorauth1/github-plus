@@ -16,6 +16,7 @@
 * Show download link for each individual file (not applicable for folder / symlink).
 * Copy file's contents directly to Clipboard (just won't work for markdown files).
 * Download file while viewing it's contents.
+* Show max 100 images thumbnails in current directory eg. (png, jpg, jpeg, gif)
 
 ***Note:*** For private repos([Issue #6](https://github.com/softvar/github-plus/issues/6)), Github Access Token is required. Follow the steps [mentioned below](#github-api-rate-limiting) to add your Github Access Token.
 

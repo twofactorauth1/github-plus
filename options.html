@@ -3,6 +3,7 @@
 <head>
 	<title>Github Plus Options</title>
 	<style type="text/css">
+	*{box-sizing: content-box;}
 		body {
 			font-size: 15px;
 		}
@@ -145,6 +146,7 @@
 		.slider.round:before {
 			border-radius: 50%;
 		}
+		.label-switch label.switch{float:right;}
 	</style>
 </head>
 <body>
@@ -156,13 +158,6 @@
 		<span id="status--text" class="success-msg  vertical-center"></span>
 	</div>
 	<h3 class="inline-block">Options</h3>
-    <div class="background--grey  push--top  padding--10">
-	 <span>Show Image Thumbnails</span>
-      <label class="switch">
-		<input id="enable-thumbnail" type="checkbox">
-		<span class="slider round"></span>
-	  </label>
-	</div>
 	<div class="background--grey  push--top  padding--10">
 		<div style="padding-bottom: 10px;">Enter Github Access Token</div>
 		<input type="text" name="" placeholder="Github Access Token" id="x-github-token" class="push--top" style="width: 98%;">
